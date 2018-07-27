@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="nl">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css" integrity="sha256-oSrCnRYXvHG31SBifqP2PM1uje7SJUyX0nTwO2RJV54=" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" integrity="sha256-2YQRJMXD7pIAPHiXr0s+vlRWA7GYJEK0ARns7k2sbHY=" crossorigin="anonymous" />
+</head>
+
+<body>
+  <div class="section">
+    <div class="container">
+      <!--
+        Voeg je soundboard button hier toe met het pad naar je sound als data attribute `data-sound-path`
+        voorbeeld:
+          <button class="button js-playBtn" type="button" data-sound-path="PAD_NAAR_JE_SOUND">KNOP_TEXT</button>
+      -->
+      <button class="button js-playBtn" type="button" data-sound-path="sounds/binneuh.mp3">Binneuh</button>
+      <button class="button js-playBtn" type="button" data-sound-path="sounds/goallll.mp3">Goallll</button>
+      <button class="button js-playBtn" type="button" data-sound-path="sounds/hij-trapt-em-binnen.mp3">Hij trapt em binnen</button>
+      <button class="button js-playBtn" type="button" data-sound-path="sounds/oelalalalala.mp3">Oelalalalala</button>
+      <button class="button js-playBtn" type="button" data-sound-path="sounds/ongelooflijk-hoe-ist-mogelijk.mp3">Ongelofelijk, hoe ist mogelijk</button>
+      <button class="button js-playBtn" type="button" data-sound-path="sounds/ongelooflijk.mp3">Ongelofelijk</button>
+      <button class="button js-playBtn" type="button" data-sound-path="sounds/owowowo.mp3">Owowowo</button>
+      <button class="button js-playBtn" type="button" data-sound-path="sounds/strak-in-het-pak.mp3">Strak in het pak</button>
+      <button class="button js-playBtn" type="button" data-sound-path="sounds/voor-vorst.mp3">Voor vorst</button>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.14/howler.core.min.js" integrity="sha256-EG5ezssy0yy2YU5X3YqPlMrtm9YO+JxLT3cPzz0L7vc=" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    var soundButtons = document.querySelectorAll('.js-playBtn');
+    var activeClass = 'button-primary';
+
+    for (var i = 0; i < soundButtons.length; i++) {
+      var soundButton = soundButtons[i];
+      soundButton.dataset.buttonId = i;
+
+      soundButton.howl = new Howl({
+        src: [soundButton.dataset.soundPath],
+        onplay: function(playId) { toggleActiveClass(playId, true) },
+        onend: function(playId) { toggleActiveClass(playId, false) }
+      });
+
+      soundButton.addEventListener('click', function() {
+        this.dataset.playId = soundButtons[this.dataset.buttonId].howl.play();
+      });
+    }
+
+    function toggleActiveClass(playId, active) {
+      var button = document.querySelector('[data-play-id="' + playId + '"]');
+      (!active) ? button.classList.remove(activeClass) : button.classList.add(activeClass);
+    }
+  </script>
+</body>
+
+</html>
